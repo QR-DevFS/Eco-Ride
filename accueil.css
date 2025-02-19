@@ -1,0 +1,76 @@
+@import url("https://fonts.googleapis.com/css2?family=Neucha&family=Outfit:wght@100..900&display=swap");
+main,
+header,
+footer {
+  font-family: "Neucha", "Outfit", serif;
+}
+
+.nav-item {
+  margin-left: 6vw;
+  font-size: larger;
+}
+.nav-link {
+  color: #85c17e !important;
+}
+.nav-link:hover {
+  color: #85c17e;
+  text-decoration: underline;
+}
+.navbar-nav {
+  gap: 20px;
+}
+
+article h2 {
+  color: #85c17e;
+  font-size: 8vh;
+  margin-bottom: 10vh;
+}
+.poslogo {
+  position: relative;
+  left: 25vw;
+  border-radius: 10%;
+}
+p {
+  color: #828b90;
+}
+.postitre {
+  position: relative;
+  bottom: 20vh;
+}
+article h1 {
+  color: #85c17e;
+  font-size: 10vh;
+}
+
+.posimg {
+  top: 80%;
+}
+.rounded {
+  border-radius: 50px;
+}
+.barre {
+  border: 1px solid;
+  transform: rotate(90deg);
+  max-width: 10%;
+}
+
+.posform {
+  bottom: 50vh;
+  left: 33vw;
+}
+.button-bg {
+  color: white;
+  background-color: #85c17e;
+}
+
+.pdp {
+  left: 50%;
+}
+.pdp a {
+  padding-top: 0vh;
+  text-decoration: none;
+  color: #828b90;
+}
+.pdpcontainer {
+  top: 20vh;
+}
