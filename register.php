@@ -1,14 +1,13 @@
 <?php
-
 header('Content-Type: application/json');
 
 $servername = "localhost";
-$username = "root";
+$username1 = "root";
 $password = "";
 $dbname = "ecoride";
 
 // Créer une connexion
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $username1, $password, $dbname);
 
 // Vérifier la connexion
 if ($conn->connect_error) {
@@ -16,7 +15,7 @@ if ($conn->connect_error) {
 }
 
 $data = json_decode(file_get_contents('php://input'), true);
-$username = trim($data['username']);
+$username = trim($data['pseudo']);
 $email = trim($data['email']);
 $password = trim($data['password']);
 
@@ -30,7 +29,7 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 }
 
 // Vérifier si le nom d'utilisateur ou l'email existe déjà
-$stmt = $conn->prepare("SELECT utilisateur_id FROM Utilisateur WHERE username = ? OR email = ?");
+$stmt = $conn->prepare("SELECT utilisateur_id FROM Utilisateur WHERE pseudo = ? OR email = ?");
 $stmt->bind_param("ss", $username, $email);
 $stmt->execute();
 $stmt->store_result();
