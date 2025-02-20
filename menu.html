@@ -54,7 +54,13 @@
                       </button>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#">Se connecter</a>
+                      <button
+                        class="dropdown-item"
+                        id="openConnexionModal"
+                        href="#"
+                      >
+                        Se connecter
+                      </button>
                     </li>
                   </ul>
                 </li>
@@ -121,6 +127,53 @@
           </div>
         </div>
       </div>
+      <div id="connexionModal" class="modal fade">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Créer un compte</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form id="ConnexionForm">
+                <div class="form-group">
+                  <label for="pseudoConnexion">Nom d'utilisateur</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="pseudoConnexion"
+                    name="pseudoConnexion"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="passwordConnexion">Mot de passe</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="passwordConnexion"
+                    name="passwordConnexion"
+                    required
+                  />
+                </div>
+                <button
+                  type="button"
+                  class="btn btn-success mt-4"
+                  onclick="submitConnexion()"
+                >
+                  Se connecter
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
 
     <script>
@@ -143,6 +196,41 @@
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ pseudo, email, password }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            alert("Votre a bien été crée");
+            if (data.success) {
+              document.activeElement.blur();
+              $("#registerModal").modal("hide");
+              document.getElementById("registerForm").reset();
+              window.open("./footer.html");
+            }
+          });
+      }
+    </script>
+    <script>
+      $(document).ready(function () {
+        $("#openConnexionModal").click(function (event) {
+          event.preventDefault();
+
+          $("#connexionModal").modal("show");
+        });
+      });
+
+      function submitConnexion() {
+        const pseudoConnexion =
+          document.getElementById("pseudoConnexion").value;
+
+        const passwordConnexion =
+          document.getElementById("passwordConnexion").value;
+
+        fetch("registerConnexion.php", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ pseudoConnexion, passwordConnexion }),
         })
           .then((response) => response.json())
           .then((data) => {
