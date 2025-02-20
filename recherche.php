@@ -16,6 +16,8 @@ if  (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST") 
   $dureemax = $_POST['dureemax'] ?? null;
   $note = $_POST['note'] ?? [];
     
+  echo "JAWSDB_URL: " . getenv('JAWSDB_URL') . "<br>";
+
   $url = getenv('JAWSDB_URL');
 $dbparts = parse_url($url);
 
