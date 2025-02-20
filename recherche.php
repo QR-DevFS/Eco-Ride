@@ -3,9 +3,10 @@ session_start();
 
 
 require "Index_pagecovoit.php";
-//require "connexionbddcovoit.php";
-require "filtre.php";
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    require "filtre.php";
   
   $depart = $_POST["depart"] ?? '';
   $destination = $_POST["destination"] ?? '';
@@ -15,6 +16,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $dureemax = $_POST['dureemax'] ?? null;
   $note = $_POST['note'] ?? [];
     
+  $url = getenv('JAWSDB_URL');
+$dbparts = parse_url($url);
+
+$hostname = $dbparts['host'];
+$username = $dbparts['user'];
+$password = $dbparts['pass'];
+$database = ltrim($dbparts['path'],'/');
 
     // Vérifiez que les champs nécessaires sont remplis et que la date est valide
     if (!empty($depart) && !empty($destination) && !empty($date)) {
@@ -22,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $dateValid = DateTime::createFromFormat('Y-m-d', $date);
         if ($dateValid && $dateValid->format('Y-m-d') === $date) {
             try {
-                $pdo = new PDO('mysql:host=localhost;dbname=ecoride', 'root', '');
+                $pdo = new PDO("mysql:host=$hostname;dbname=$database", $username, $password);
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
                 $requete = $pdo->prepare("
