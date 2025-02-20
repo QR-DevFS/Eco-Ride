@@ -2,7 +2,7 @@
 session_start();
 
 
-require "Index_pagecovoit.php";
+
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
