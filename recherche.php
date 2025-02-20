@@ -39,6 +39,10 @@ $pdo = new PDO("mysql:host=$hostname;port=$port;dbname=$database;charset=utf8mb4
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 echo "✅ Connexion réussie à la base de données !<br>";
+$result = $pdo->query("SHOW TABLES LIKE 'covoiturage'");
+        if ($result->rowCount() == 0) {
+            die("❌ Erreur : La table 'covoiturage' n'existe pas dans la base de données.");
+        }
 
 // Préparation de la requête SQL
 $requete = $pdo->prepare("
@@ -85,3 +89,4 @@ catch (PDOException $e) {
     die("❌ Erreur de connexion à la base de données : " . $e->getMessage());
 }
 }
+?>
