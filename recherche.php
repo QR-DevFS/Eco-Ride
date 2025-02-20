@@ -20,8 +20,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $dbparts = parse_url($url);
 
 $hostname = '127.0.0.1';
-$username = $dbparts['user'];
-$password = $dbparts['pass'];
+$username = $dbparts['root'];
+$password = $dbparts[''];
 $database = ltrim($dbparts['path'],'/');
 
     // Vérifiez que les champs nécessaires sont remplis et que la date est valide
