@@ -1,4 +1,4 @@
-session_start();
+<?php session_start();
 
 if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
 require "filtre.php";
@@ -83,3 +83,4 @@ echo "🚫 Aucun résultat trouvé.";
 die("❌ Erreur de connexion à la base de données : " . $e->getMessage());
 }
 }
+?>
