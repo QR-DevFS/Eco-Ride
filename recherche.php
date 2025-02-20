@@ -37,7 +37,7 @@ $database = ltrim($dbparts['path'],'/');
             try {
                 $pdo = new PDO("mysql:host=$hostname;port=3306;dbname=$database", $username, $password);
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
+                echo "✅ Connexion réussie à la base de données !";
                 $requete = $pdo->prepare("
                     SELECT covoiturage.*, utilisateur.pseudo, utilisateur.photo, voiture.energie
                     FROM covoiturage
