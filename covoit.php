@@ -16,12 +16,12 @@
       <div class="poscovoit p-2">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-8 d-flex z-3">
-              <h1 id="villedepart" data-category="depart">
+            <div class="col-8 d-flex ">
+              <h1 id="villedepart" class="text-dark" data-category="depart">
                 <?php echo $resultdepart ?>
               </h1>
               <img src="./arrow-right-solid.svg" class="p-2" width="10%"></img>
-              <h1 id="villedarrive" data-category="arrive"><?php echo $resultarrivee?></h1>
+              <h1 id="villedarrive" data-category="arrive" class="text-dark"><?php echo $resultarrivee?></h1>
             </div>
             <div class="col-1 posportrait">
               <img class="rounded" alt="portrait" />
