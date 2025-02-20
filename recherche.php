@@ -30,7 +30,7 @@ $database = ltrim($dbparts['path'],'/');
         $dateValid = DateTime::createFromFormat('Y-m-d', $date);
         if ($dateValid && $dateValid->format('Y-m-d') === $date) {
             try {
-                $pdo = new PDO("mysql:host=$hostname;dbname=$database", $username, $password);
+                $pdo = new PDO("mysql:host=$hostname;port=3306;dbname=$database", $username, $password);
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
                 $requete = $pdo->prepare("
