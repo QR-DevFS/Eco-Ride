@@ -20,7 +20,7 @@ if  (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST") 
 $dbparts = parse_url($url);
 
 $hostname = $dbparts['host'];
-$username = $dbparts['Visiteur'];
+$username = $dbparts['user'];
 $password = $dbparts[""];
 $database = ltrim($dbparts['path'],'/');
 
