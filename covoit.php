@@ -16,7 +16,7 @@
       <div class="poscovoit p-2">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-8 d-flex">
+            <div class="col-8 d-flex z-3">
               <h1 id="villedepart" data-category="depart">
                 <?php echo $resultdepart ?>
               </h1>
