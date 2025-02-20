@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ecoride</title>
+    <link rel="stylesheet" type="text/css" href="accueil.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <main>
+      <article>
+        <div class="container-fluid">
+          <div class="postitre">
+            <h1 class="text-center">Bienvenue sur EcoRide</h1>
+            <h2 class="text-center mt-5">Un site de covoiturage écologique</h2>
+          </div>
+        </div>
+        <div class="container-fluid position-relative posimg text-center">
+          <div class="carousel slide" id="carousel" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active opacity-50">
+                <img
+                  class="d-block w-100"
+                  height="500rem"
+                  src="./img/carousel-1.jpg"
+                  alt="Photo récharge électrique"
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  class="d-block w-100"
+                  height="500rem"
+                  src="./img/carousel-2.jpg"
+                  alt="Photo récharge électrique"
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  class="d-block w-100"
+                  height="500rem"
+                  src="./img/carousel-3.jpg"
+                  alt="Photo récharge électrique"
+                />
+              </div>
+            </div>
+          </div>
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#carousel"
+            data-bs-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#carousel"
+            data-bs-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </article>
+
+      <article>
+        <form method="post">
+          <div class="container-fluid d-flex size">
+            <div class="position-relative posform pt-5">
+              <fieldset class="border w-90 rounded p-3 ms-5">
+                <input
+                  class="border-0"
+                  placeholder="Départ"
+                  type="text"
+                  name="depart"
+                  id="depart"
+                />
+                <input
+                  class="border-0"
+                  placeholder="Destination"
+                  type="text"
+                  name="destination"
+                  id="destination"
+                />
+                <input
+                  class="border-0"
+                  placeholder="Date"
+                  type="date"
+                  name="date"
+                  id="date"
+                />
+                <button type="submit" class="ms-2 button-bg">Rechercher</button>
+              </fieldset>
+            </div>
+          </div>
+        </form>
+      </article>
+
+      <article>
+        <h2 class="text-center">Qui sommes nous?</h2>
+        <div class="container d-flex">
+          <div class="position-relative justify-content-center pos row">
+            <div class="col-2 me-5">
+              <h3 class="text-center">De nombreux trajets</h3>
+              <p class="text-justify pt-4">
+                Grâce à Ecoride, soyez libre de parcourir la France avec nos
+                nombreux choix de destinations.
+              </p>
+            </div>
+            <div class="col-2 me-5">
+              <h3 class="text-center">Un aspect écologique</h3>
+              <p class="text-justify pt-4">
+                Grâce à Ecoride, les trajets avec une voiture électrique sont
+                mis en avant. Il est important pour nous de créer du covoiturage
+                plus responsable.
+              </p>
+            </div>
+            <div class="col-2 me-5">
+              <h3 class="text-center">De nombreux trajets</h3>
+              <p class="text-justify pt-4">
+                Le site propose une interface intuitive qui permet aux
+                utilisateurs de planifier facilement leurs trajets. Grâce à des
+                filtres avancés, vous pouvez trouver des covoiturages qui
+                correspondent exactement à vos besoins, que ce soit en termes de
+                coût, de durée ou de type de véhicule. De plus, notre système de
+                notation permet aux passagers de laisser des avis sur les
+                conducteurs, garantissant ainsi des trajets sécurisés et
+                agréables.
+              </p>
+            </div>
+            <div class="col-2 me-5">
+              <h3 class="text-center">Un aspect écologique</h3>
+              <p class="text-justify pt-4">
+                Notre engagement envers l'écologie ne s'arrête pas à la
+                promotion des véhicules propres. Nous collaborons également avec
+                des organisations environnementales pour compenser les émissions
+                de CO2 des trajets effectués via notre plateforme. En
+                choisissant notre service, vous participez à un mouvement
+                collectif visant à préserver notre planète. Chaque trajet
+                partagé est une étape vers un avenir plus vert et plus durable.
+              </p>
+            </div>
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

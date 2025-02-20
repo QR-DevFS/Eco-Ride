@@ -1,0 +1,14 @@
+body {
+  background-color: #f6f7ee;
+}
+
+.pos2 {
+  color: #f6f7ee;
+  margin-top: 10vh;
+  width: 35vw;
+
+  margin-left: 30vw;
+  background-color: #85c17e;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 2%;
+}
