@@ -44,13 +44,7 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Vérifier si la table existe
       
-        $tables = ['covoiturage', 'utilisateur', 'voiture'];
-        foreach ($tables as $table) {
-            $result = $pdo->query("SHOW TABLES LIKE '$table'");
-            if ($result->rowCount() == 0) {
-                die("❌ Erreur : La table '$table' n'existe pas dans la base de données.");
-            }
-        }
+
         // Préparation de la requête SQL
         $requete = $pdo->prepare('
            SELECT covoiturage.*, utilisateur.pseudo, utilisateur.photo, voiture.energie FROM utilisateur INNER JOIN covoiturage ON utilisateur.utilisateur_id = covoiturage.covoiturage_id INNER JOIN voiture ON voiture.voiture_id = utilisateur.utilisateur_id
