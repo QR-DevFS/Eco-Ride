@@ -3,9 +3,30 @@
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
     $covoiturage_id = $_GET['id'];
     $condition="";
+    $url = getenv('JAWSDB_URL');
+
+    if (!$url) {
+        die("❌ Erreur : JAWSDB_URL non définie. Vérifiez vos variables d'environnement Heroku.");
+    }
+
+   
+
+    // Parsing de l'URL pour extraire les identifiants de connexion
+    $dbparts = parse_url($url);
+
+    $hostname = $dbparts['host'] ?? '';
+    $username = $dbparts['user'] ?? '';
+    $password = $dbparts['pass'] ?? '';
+    $database = ltrim($dbparts['path'] ?? '', '/');
+    $port = $dbparts['port'] ?? 3306;
+
+    // Vérification des valeurs extraites
+    if (empty($hostname) || empty($username) || empty($database)) {
+        die("❌ Erreur : Problème avec la configuration de la base de données.");
+    }
 
     try {
-        $pdo = new PDO('mysql:host=localhost;dbname=ecoride', 'root', '');
+        $pdo = new PDO("mysql:host=$hostname;port=$port;dbname=$database;charset=utf8mb4", $username, $password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         $requete = $pdo->prepare("

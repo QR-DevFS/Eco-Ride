@@ -19,7 +19,7 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
         die("❌ Erreur : JAWSDB_URL non définie. Vérifiez vos variables d'environnement Heroku.");
     }
 
-    echo "🔗 JAWSDB_URL: " . htmlspecialchars($url) . "<br>";
+   
 
     // Parsing de l'URL pour extraire les identifiants de connexion
     $dbparts = parse_url($url);
@@ -40,7 +40,7 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
         $pdo = new PDO("mysql:host=$hostname;port=$port;dbname=$database;charset=utf8mb4", $username, $password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        echo "✅ Connexion réussie à la base de données !<br>";
+        
 
         // Vérifier si la table existe
       
