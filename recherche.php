@@ -19,6 +19,9 @@ if  (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST") 
   echo "JAWSDB_URL: " . getenv('JAWSDB_URL') . "<br>";
 
   $url = getenv('JAWSDB_URL');
+  if (!$url) {
+    die("❌ Erreur : JAWSDB_URL non définie. Vérifiez vos variables d'environnement Heroku.");
+}
 $dbparts = parse_url($url);
 
 $hostname = $dbparts['host'];
