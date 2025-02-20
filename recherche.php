@@ -10,82 +10,80 @@ $energie = $_POST['energie'] ?? [];
 $prixmax = $_POST['prixmax'] ?? null;
 $dureemax = $_POST['dureemax'] ?? null;
 $note = $_POST['note'] ?? [];
+//Vérification de l'URL JAWSDB
+$url = getenv('JAWSDB_URL');
 
-$stmt = $pdo->query("SHOW TABLES;");
-echo "📋 Tables disponibles :<br>";
-while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-    echo "➡ " . $row[0] . "<br>";
+if (!$url) {
+die("❌ Erreur : JAWSDB_URL non définie. Vérifiez vos variables d'environnement Heroku.");
+}
 
-//// Vérification de l'URL JAWSDB
-//$url = getenv('JAWSDB_URL');
-//
-//if (!$url) {
-//die("❌ Erreur : JAWSDB_URL non définie. Vérifiez vos variables d'environnement Heroku.");
-//}
-//
-//echo "🔗 JAWSDB_URL: " . htmlspecialchars($url) . "<br>";
-//
-//// Parsing de l'URL pour extraire les identifiants de connexion
-//$dbparts = parse_url($url);
-//
-//$hostname = $dbparts['host'] ?? '';
-//$username = $dbparts['user'] ?? '';
-//$password = $dbparts['pass'] ?? ''; // Pas de `""`, juste récupérer la valeur
-//$database = ltrim($dbparts['path'] ?? '', '/');
-//$port = $dbparts['port'] ?? 3306; // Prendre le port correct
-//
-//// Vérification des valeurs extraites
-//if (empty($hostname) || empty($username) || empty($database)) {
-//die("❌ Erreur : Problème avec la configuration de la base de données.");
-//}
-//
-//try {
-//// Connexion avec `utf8mb4` pour éviter les problèmes d'encodage
-//$pdo = new PDO("mysql:host=$hostname;port=$port;dbname=$database;charset=utf8mb4", $username, $password);
-//$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-//
-//echo "✅ Connexion réussie à la base de données !<br>";
-//
-//// Préparation de la requête SQL
-//$requete = $pdo->prepare("
-//SELECT covoiturage.*, utilisateur.pseudo, utilisateur.photo, voiture.energie
-//FROM covoiturage
-//INNER JOIN utilisateur ON covoiturage.covoiturage_id = utilisateur.utilisateur_id
-//INNER JOIN voiture ON voiture.voiture_id = utilisateur.utilisateur_id
-//WHERE covoiturage.lieu_depart = :lieudepart
-//AND covoiturage.lieu_arrivee = :lieuarrivee
-//AND covoiturage.date_depart = :datedepart
-//");
-//
-//$requete->bindParam(':lieudepart', $depart, PDO::PARAM_STR);
-//$requete->bindParam(':lieuarrivee', $destination, PDO::PARAM_STR);
-//$requete->bindParam(':datedepart', $date, PDO::PARAM_STR);
-//$requete->execute();
-//
-//$result = $requete->fetchAll(PDO::FETCH_ASSOC);
-//if ($result) {
-//foreach ($result as $row) {
-//$resultnbplace = htmlspecialchars($row['nb_place']);
-//$resultprix = htmlspecialchars($row['prix_personne']);
-//$resultheuredepart = htmlspecialchars($row['heure_depart']);
-//$resultheurearrivee = htmlspecialchars($row['heure_arrivee']);
-//$resultdepart = htmlspecialchars($row['lieu_depart']);
-//$resultarrivee = htmlspecialchars($row['lieu_arrivee']);
-//$resultdate = htmlspecialchars($row['date_depart']);
-//$resultpseudo = htmlspecialchars($row['pseudo']);
-//$resultenergie = htmlspecialchars($row['energie']);
-//$covoitid = htmlspecialchars($row['covoiturage_id']);
-//
-//$trajetecologique = ($resultenergie == "Essence") ? "Trajet non-écologique" : "Trajet écologique";
-//
-//// Inclure le fichier pour afficher les résultats
-//include "covoit.php";
-//}
-//} else {
-echo "🚫 Aucun résultat trouvé.";
+echo "🔗 JAWSDB_URL: " . htmlspecialchars($url) . "<br>";
+
+// Parsing de l'URL pour extraire les identifiants de connexion
+$dbparts = parse_url($url);
+
+$hostname = $dbparts['host'] ?? '';
+$username = $dbparts['user'] ?? '';
+$password = $dbparts['pass'] ?? ''; // Pas de `""`, juste récupérer la valeur
+$database = ltrim($dbparts['path'] ?? '', '/');
+$port = $dbparts['port'] ?? 3306; // Prendre le port correct
+
+// Vérification des valeurs extraites
+if (empty($hostname) || empty($username) || empty($database)) {
+die("❌ Erreur : Problème avec la configuration de la base de données.");
 }
-} catch (PDOException $e) {
-die("❌ Erreur de connexion à la base de données : " . $e->getMessage());
+
+try {
+// Connexion avec `utf8mb4` pour éviter les problèmes d'encodage
+$pdo = new PDO("mysql:host=$hostname;port=$port;dbname=$database;charset=utf8mb4", $username, $password);
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+echo "✅ Connexion réussie à la base de données !<br>";
+
+// Préparation de la requête SQL
+$requete = $pdo->prepare("
+SELECT covoiturage.*, utilisateur.pseudo, utilisateur.photo, voiture.energie
+FROM covoiturage
+INNER JOIN utilisateur ON utilisateur.utilisateur_id = covoiturage.covoiturage_id
+INNER JOIN voiture ON voiture.voiture_id = utilisateur.utilisateur_id
+WHERE covoiturage.lieu_depart = :lieudepart
+AND covoiturage.lieu_arrivee = :lieuarrivee
+AND covoiturage.date_depart = :datedepart
+");
+
+$requete->bindParam(':lieudepart', $depart, PDO::PARAM_STR);
+$requete->bindParam(':lieuarrivee', $destination, PDO::PARAM_STR);
+$requete->bindParam(':datedepart', $date, PDO::PARAM_STR);
+$requete->execute();
+
+$result = $requete->fetchAll(PDO::FETCH_ASSOC);
+if ($result) {
+foreach ($result as $row) {
+$resultnbplace = htmlspecialchars($row['nb_place']);
+$resultprix = htmlspecialchars($row['prix_personne']);
+$resultheuredepart = htmlspecialchars($row['heure_depart']);
+$resultheurearrivee = htmlspecialchars($row['heure_arrivee']);
+$resultdepart = htmlspecialchars($row['lieu_depart']);
+$resultarrivee = htmlspecialchars($row['lieu_arrivee']);
+$resultdate = htmlspecialchars($row['date_depart']);
+$resultpseudo = htmlspecialchars($row['pseudo']);
+$resultenergie = htmlspecialchars($row['energie']);
+$covoitid = htmlspecialchars($row['covoiturage_id']);
+
+$trajetecologique = ($resultenergie == "Essence") ? "Trajet non-écologique" : "Trajet écologique";
+
+// Inclure le fichier pour afficher les résultats
+include "covoit.php";
+};}
+
+else {
+    echo "🚫 Aucun résultat trouvé.";
+    }
+} 
+
+catch (PDOException $e) {
+("❌ Erreur de connexion à la base de données : " . $e->getMessage());
+
+
 }
-}
-?>
+};
