@@ -27,7 +27,8 @@ article h2 {
 }
 .poslogo {
   position: relative;
-  left: 25vw;
+  left: 32vw;
+  top: 2vh;
   border-radius: 10%;
 }
 p {

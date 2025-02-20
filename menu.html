@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="modal.css" />
   </head>
   <body>
     <header>
@@ -43,12 +45,16 @@
                   </a>
                   <ul class="dropdown-menu text-center w-25">
                     <li>
-                      <a class="dropdown-item" href="modalconnexion.php"
-                        >Se connecter</a
+                      <button
+                        class="dropdown-item"
+                        id="openRegisterModal"
+                        href="#"
                       >
+                        S'inscrire
+                      </button>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#">Créer un compte</a>
+                      <a class="dropdown-item" href="#">Se connecter</a>
                     </li>
                   </ul>
                 </li>
@@ -58,5 +64,97 @@
         </div>
       </nav>
     </header>
+    <main>
+      <div id="registerModal" class="modal fade">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Créer un compte</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form id="registerForm">
+                <div class="form-group">
+                  <label for="pseudo">Nom d'utilisateur</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="pseudo"
+                    name="pseudo"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    name="email"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="password">Mot de passe</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    name="password"
+                    required
+                  />
+                </div>
+                <button
+                  type="button"
+                  class="btn btn-success mt-4"
+                  onclick="submitRegister()"
+                >
+                  S'inscrire
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      $(document).ready(function () {
+        $("#openRegisterModal").click(function (event) {
+          event.preventDefault();
+
+          $("#registerModal").modal("show");
+        });
+      });
+
+      function submitRegister() {
+        const pseudo = document.getElementById("pseudo").value;
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        fetch("register.php", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ pseudo, email, password }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            alert("Votre a bien été crée");
+            if (data.success) {
+              document.activeElement.blur();
+              $("#registerModal").modal("hide");
+              document.getElementById("registerForm").reset();
+              window.open("./footer.html");
+            }
+          });
+      }
+    </script>
   </body>
 </html>

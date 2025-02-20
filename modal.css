@@ -1,4 +1,5 @@
 .modal {
+  display: contents;
   font-family: "Neucha", serif;
   position: fixed;
   left: 0;
@@ -11,6 +12,7 @@
 }
 
 .modal-content {
+  display: contents;
   font-family: "Neucha", serif;
   z-index: 1;
   background-color: #fefefe;
