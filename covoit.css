@@ -40,6 +40,7 @@ main {
 
   margin-left: 40vw;
   background-color: #85c17e;
+  z-index: -1;
 }
 .pos2 {
   background-color: #85c17e;
