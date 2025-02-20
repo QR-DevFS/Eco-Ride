@@ -47,8 +47,8 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Préparation de la requête SQL
         $requete = $pdo->prepare("
-            SELECT covoiturage.lieu_depart,covoiturage.lieu_arrivee,covoiturage.date_depart, utilisateur.pseudo, utilisateur.photo, voiture.energie
-            FROM covoiturage
+            SELECT covoiturage.*, utilisateur.pseudo, utilisateur.photo, voiture.energie
+            FROM 'covoiturage'
             INNER JOIN utilisateur ON utilisateur.utilisateur_id = covoiturage.covoiturage_id
             INNER JOIN voiture ON voiture.voiture_id = utilisateur.utilisateur_id
             WHERE covoiturage.lieu_depart = :lieudepart
