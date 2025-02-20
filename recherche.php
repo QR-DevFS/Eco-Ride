@@ -43,14 +43,11 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
         echo "✅ Connexion réussie à la base de données !<br>";
 
         // Vérifier si la table existe
-        $result = $pdo->query("SHOW TABLES LIKE 'covoiturage'");
-        if ($result->rowCount() == 0) {
-            die("❌ Erreur : La table 'covoiturage' n'existe pas dans la base de données.");
-        }
+      
 
         // Préparation de la requête SQL
         $requete = $pdo->prepare("
-            SELECT covoiturage.*, utilisateur.pseudo, utilisateur.photo, voiture.energie
+            SELECT covoiturage.lieu_depart,covoiturage.lieu_arrivee,covoiturage.date_depart, utilisateur.pseudo, utilisateur.photo, voiture.energie
             FROM covoiturage
             INNER JOIN utilisateur ON utilisateur.utilisateur_id = covoiturage.covoiturage_id
             INNER JOIN voiture ON voiture.voiture_id = utilisateur.utilisateur_id
