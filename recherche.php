@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $url = getenv('JAWSDB_URL');
 $dbparts = parse_url($url);
 
-$hostname = $dbparts['host'];
+$hostname = '127.0.0.1';
 $username = $dbparts['user'];
 $password = $dbparts['pass'];
 $database = ltrim($dbparts['path'],'/');
