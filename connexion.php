@@ -36,7 +36,7 @@ if ($data) {
         // Authentification réussie
         echo json_encode(["success" => true, "message" => "Connexion réussie"]);
         // Inclure le fichier recherche.php si nécessaire
-        require "./recherche.php";
+      
     } else {
         // Mot de passe incorrect
         echo json_encode(["success" => false, "message" => "Mot de passe incorrect."]);

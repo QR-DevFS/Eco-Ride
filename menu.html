@@ -190,7 +190,7 @@
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
 
-        fetch("register.php", {
+        fetch("registerinscription.php", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -199,12 +199,12 @@
         })
           .then((response) => response.json())
           .then((data) => {
-            alert("Votre a bien été crée");
+            alert("Votre compte a bien été crée");
             if (data.success) {
               document.activeElement.blur();
               $("#registerModal").modal("hide");
               document.getElementById("registerForm").reset();
-              window.open("./footer.html");
+              window.open("#");
             }
           });
       }
@@ -234,12 +234,11 @@
         })
           .then((response) => response.json())
           .then((data) => {
-            alert("Votre a bien été crée");
             if (data.success) {
               document.activeElement.blur();
               $("#registerModal").modal("hide");
               document.getElementById("registerForm").reset();
-              window.open("./footer.html");
+              window.open("#");
             }
           });
       }
