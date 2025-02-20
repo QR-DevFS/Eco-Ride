@@ -77,6 +77,7 @@ $database = ltrim($dbparts['path'],'/');
                 }
             } catch (PDOException $e) {
                 echo "Error: " . $e->getMessage();
+                die("❌ Erreur de connexion à la base de données : " . $e->getMessage());
             }
         } else {
             echo "La date fournie n'est pas valide. Veuillez utiliser le format YYYY-MM-DD.";
