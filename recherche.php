@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 
 if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
     require "filtre.php";
@@ -78,7 +78,9 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
                 include "covoit.php";
             }
         } else {
-            echo "🚫 Aucun résultat trouvé.";
+            echo "<div class='text-center'>
+            <p>🚫 Aucun résultat trouvé.<p>
+            </div>";
         }
     } catch (PDOException $e) {
         die("❌ Erreur de connexion à la base de données : " . $e->getMessage());
