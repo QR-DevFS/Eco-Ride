@@ -1,5 +1,5 @@
 <?php
-require "menu.html";
+require "menu.php";
 require "accueil.html";
 
 require "footer.html";

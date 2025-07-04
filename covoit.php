@@ -1,76 +1,130 @@
-<!DOCTYPE html>
-<html lang="fr">
+<form method="POST" action="" class="container mt-5" id="searchForm">
+  <div class="row g-3">
+    <div class="col-md-4">
+      <label for="depart" class="form-label">Ville de départ</label>
+      <input type="text" class="form-control" name="depart" id="depart" required>
+    </div>
+    <div class="col-md-4">
+      <label for="destination" class="form-label">Ville d'arrivée</label>
+      <input type="text" class="form-control" name="destination" id="destination" required>
+    </div>
+    <div class="col-md-4">
+      <label for="date" class="form-label">Date</label>
+      <input type="date" class="form-control" name="date" id="date" required>
+    </div>
+    <div class="col-12 text-center mt-3 mb-5">
+      <button type="submit" class="btn btn-primary">Rechercher</button>
+    </div>
+  </div>
+</form>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Covoiturage</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
-  <link rel="stylesheet" type="text/css" href="covoit.css" />
-</head>
 
-<body>
-  <article>
-    <div class="container-fluid ">
-      <div class="poscovoit p-2">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-8 d-flex ">
-              <h1 id="villedepart" class="text-dark" data-category="depart">
-                <?php echo $resultdepart ?>
-              </h1>
-              <img src="./arrow-right-solid.svg" class="p-2" width="10%"></img>
-              <h1 id="villedarrive" data-category="arrive" class="text-dark"><?php echo $resultarrivee?></h1>
-            </div>
-            <div class="col-1 posportrait">
-              <img class="rounded" alt="portrait" />
-            </div>
+
+<div class="container mt-4" id="resultsSection" style="display:none;">
+  <div class="row">
+
+    <div class="col-md-3">
+      <div id="filterSection" style="display:none; border:1px solid #ccc; padding:20px; border-radius:10px;">
+        <form id="filterForm">
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="electrique" name="electrique" value="1">
+            <label class="form-check-label" for="electrique" style="color:#6cbf84;">Voiture électrique
+              uniquement</label>
           </div>
-        </div>
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-6 d-flex pt-3">
-              <h4 id="datecovoit"><?php echo $resultdate ?></h4>
-            </div>
-            <div class="col-3  ">
-              <p class="pseudo"><?php echo $resultpseudo ?> </p>
-            </div>
-
-            <div class="container-fluid d-flex pt-4 ms-5">
-              <h5 class="pe-2"><?php echo $resultheuredepart ?></h5>
-              <img src="./timeline-solid.svg" width="8%" />
-              <h5 class="ps-2"><?php echo $resultheurearrivee ?> </h5>
-            </div>
-
-            <div class="container-fluid">
-              <div class="infocovoit">
-                <div class="row">
-                  <div class="col-3 padinfo text-center">
-                    <h5><?php echo $trajetecologique ?></h5>
-                  </div>
-                  <div class="col-3 padinfo text-center">
-                    <h5>Place : <?php echo $resultnbplace ?></h5>
-                  </div>
-                  <div class="col-3 padinfo text-center">
-                    <h5><?php echo $resultprix ?> crédits</h5>
-                  </div>
-                </div>
-                <div class="container-fluid">
-                  <div class="row mx-auto">
-                    <a href="detail.php?id=<?php echo $covoitid;?>" type="submit"> Pour en savoir plus...
-                    </a></button>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div class="mb-3">
+            <label for="prix_max" class="form-label" style="color:#6cbf84;">Prix maximum :</label>
+            <input type="number" class="form-control" id="prix_max" name="prix_max" min="0" placeholder="Ex: 40">
           </div>
-        </div>
-  </article>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-  </script>
-  <script src="scriptcovoit.js" type="module"> </script>
-</body>
+          <div class="mb-3">
+            <label for="duree_max" class="form-label" style="color:#6cbf84;">Durée maximale (en minutes) :</label>
+            <input type="number" class="form-control" id="duree_max" name="duree_max" min="0" placeholder="Ex: 120">
+          </div>
+          <div class="mb-3">
+            <label for="note_min" class="form-label" style="color:#6cbf84;">Note minimale du conducteur :</label>
+            <input type="number" class="form-control" id="note_min" name="note_min" min="0" max="5" step="0.1"
+              placeholder="Ex: 4.5">
+          </div>
+          <button type="submit" class="btn btn-success">Filtrer</button>
+        </form>
+      </div>
+    </div>
 
-</html>
+
+    <div class="col-md-9">
+      <div id="loadingSpinner" class="text-center my-4" style="display: none;">
+        <div class="spinner-border text-success" role="status">
+          <span class="visually-hidden">Chargement...</span>
+        </div>
+
+      </div>
+      <div class="container" id="resultsContainer"></div>
+    </div>
+    <!-- Zone où seront affichés les résultats -->
+
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const searchForm = document.getElementById("searchForm");
+  const filterForm = document.getElementById("filterForm");
+  const resultsContainer = document.getElementById("resultsContainer");
+  const filterSection = document.getElementById("filterSection");
+  const spinner = document.getElementById("loadingSpinner");
+
+  function hasActiveFilters() {
+    const prix = document.getElementById("prix_max").value;
+    const duree = document.getElementById("duree_max").value;
+    const note = document.getElementById("note_min").value;
+    const electrique = document.getElementById("electrique").checked;
+    return prix || duree || note || electrique;
+  }
+
+  function fetchResults() {
+    const formData = new FormData(searchForm);
+
+    if (hasActiveFilters()) {
+      const filterData = new FormData(filterForm);
+      for (const [key, value] of filterData.entries()) {
+        formData.append(key, value);
+      }
+    }
+
+    spinner.style.display = "block";
+    resultsContainer.innerHTML = "";
+    document.getElementById("resultsSection").style.display = "block";
+
+    fetch("search_api.php", {
+        method: "POST",
+        body: formData,
+      })
+      .then((res) => res.text())
+      .then((html) => {
+        spinner.style.display = "none";
+        resultsContainer.innerHTML = html;
+        filterSection.style.display = "block"; // Afficher la section des filtres
+      })
+      .catch((err) => {
+        spinner.style.display = "none";
+        resultsContainer.innerHTML = "<div class='alert alert-danger'>Une erreur s'est produite.</div>";
+        console.error(err);
+      });
+  }
+
+  // Soumission du formulaire principal
+  searchForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+    fetchResults();
+  });
+
+  // Soumission du formulaire de filtres — uniquement si un filtre est actif
+  filterForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+    if (hasActiveFilters()) {
+      fetchResults();
+    } else {
+      alert("Aucun filtre actif !");
+    }
+  });
+});
+</script>

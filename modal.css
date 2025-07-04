@@ -51,3 +51,9 @@ input {
 label {
   margin-bottom: 1vh;
 }
+/* modal.css ou dans un <style> global */
+#registerModal,
+#connexionModal {
+  display: none;
+}
+
