@@ -65,6 +65,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 <head>
   <meta charset="UTF-8" />
   <title>Gestion des Voitures</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body>
+
+  <div class="container mt-4">
+
+    <img src="./img/logo.png" alt="EcoRide Logo" class="logo mb-4 d-block ">
+    <!-- En-tête avec bouton retour -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <button class="btn btn-outline-secondary" onclick="history.back()">← Retour</button>
+      <h2 class="text-center flex-grow-1">Historique des mes covoiturages</h2>
+    </div>
+  </div>
+  <form method="post" action="">
+    <input type="hidden" name="action" value="ajouter_voiture" />
+    <label>Marque :
+      <input type="text" name="marque" required />
+    </label>
+    <label>Modèle :
+      <input type="text" name="modele" required />
+    </label>
+    <label>Immatriculation :
+      <input type="text" name="immatriculation" required />
+    </label>
+    <label>Energie :
+      <input type="text" name="energie" required />
+    </label>
+    <label>Couleur :
+      <input type="text" name="couleur" required />
+    </label>
+    <label>Date 1ère immatriculation :
+      <input type="date" name="date_premiere_immatriculation" required />
+    </label>
+    <button class="btn2" type="submit">Ajouter</button>
+  </form>
   <style>
   /* Fonts style naturel et manuscrit */
   @import url("https://fonts.googleapis.com/css2?family=Neucha&family=Outfit:wght@100..900&display=swap");
@@ -124,7 +160,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     box-shadow: 0 0 8px #81b441a8;
   }
 
-  button {
+  .btn2 {
     width: 100%;
     background: linear-gradient(135deg, #6fa72f, #a3d04b);
     border: none;
@@ -143,34 +179,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     background: linear-gradient(135deg, #81b441, #c3e067);
     box-shadow: 0 6px 15px rgba(129, 180, 65, 0.8);
   }
+
+
+
+  .btn {
+    color: #85c17e;
+    border-color: #85c17e;
+  }
+
+
+  .logo {
+    max-width: 25rem;
+    height: auto;
+    padding: 4vh;
+  }
+
+  h2 {
+    margin-bottom: 10%;
+    ;
+  }
   </style>
-</head>
-
-<body>
-
-  <h3>Ajouter un véhicule</h3>
-  <form method="post" action="">
-    <input type="hidden" name="action" value="ajouter_voiture" />
-    <label>Marque :
-      <input type="text" name="marque" required />
-    </label>
-    <label>Modèle :
-      <input type="text" name="modele" required />
-    </label>
-    <label>Immatriculation :
-      <input type="text" name="immatriculation" required />
-    </label>
-    <label>Energie :
-      <input type="text" name="energie" required />
-    </label>
-    <label>Couleur :
-      <input type="text" name="couleur" required />
-    </label>
-    <label>Date 1ère immatriculation :
-      <input type="date" name="date_premiere_immatriculation" required />
-    </label>
-    <button type="submit">Ajouter</button>
-  </form>
 </body>
 
 </html>
