@@ -207,24 +207,88 @@ if (isset($_POST['suspendre'])) {
 
   <p>Total des crédits gagnés : <strong><?= $totalCredits ?> €</strong></p>
   <div class="d-flex justify-content-center mt-4">
-    <div id="charts" class="row">
-      <div class="col-md-6">
-        <h5>Covoiturages par jour</h5>
-        <ul>
-          <?php foreach ($covoituragesParJour as $c): ?>
-          <li><?= $c['date_depart'] ?> : <?= $c['total'] ?> trajets</li>
-          <?php endforeach; ?>
-        </ul>
-      </div>
-      <div class="col-md-6">
-        <h5>Crédits gagnés par jour</h5>
-        <ul>
-          <?php foreach ($creditsParJour as $c): ?>
-          <li><?= $c['date_depart'] ?> : <?= $c['total'] ?> €</li>
-          <?php endforeach; ?>
-        </ul>
+    <div class="container py-5">
+
+
+      <div class="row g-4">
+        <!-- Graphique 1 -->
+        <div class="col-md-6">
+          <div class="card shadow">
+            <div class="card-header bg-success text-white">
+              <h5 class="mb-0">Nombre de covoiturages par jour</h5>
+            </div>
+            <div class="card-body">
+              <canvas id="chartCovoiturages"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Graphique 2 -->
+        <div class="col-md-6">
+          <div class="card shadow">
+            <div class="card-header bg-warning text-dark">
+              <h5 class="mb-0">Crédits gagnés par jour</h5>
+            </div>
+            <div class="card-body">
+              <canvas id="chartCredits"></canvas>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+
+    <script>
+    // Données injectées depuis PHP
+    const labels = <?= json_encode(array_column($covoituragesParJour, 'jour')) ?>.reverse();
+
+    const dataCovoiturages = <?= json_encode(array_column($covoituragesParJour, 'total')) ?>.reverse();
+    const dataCredits = <?= json_encode(array_column($creditsParJour, 'total')) ?>.reverse();
+
+    const chartCovoiturages = new Chart(document.getElementById('chartCovoiturages'), {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Covoiturages',
+          data: dataCovoiturages,
+          backgroundColor: 'rgba(25, 135, 84, 0.7)', // Bootstrap green
+          borderColor: 'rgba(25, 135, 84, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+    const chartCredits = new Chart(document.getElementById('chartCredits'), {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Crédits gagnés',
+          data: dataCredits,
+          fill: true,
+          backgroundColor: 'rgba(255, 193, 7, 0.2)',
+          borderColor: 'rgba(255, 193, 7, 1)',
+          tension: 0.3
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+    </script>
   </div>
 
   <h2>Suspendre un compte</h2>
