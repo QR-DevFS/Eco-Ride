@@ -13,20 +13,34 @@ $note_min = $_POST['note_min'] ?? null;
 $electrique = isset($_POST['electrique']);
 
 // Construction dynamique de la requête
-$sql = "
-SELECT 
+$sql = "SELECT 
     c.*, 
     u.nom, u.prenom, u.pseudo, u.photo, 
-    v.modèle, v.energie, ROUND(AVG(a.note), 1) AS note_moyenne
+    v.modèle, v.energie, 
+    ROUND(n.note_moyenne, 1) AS note_moyenne,
+    n.nb_avis_valides
 FROM covoiturage c
 JOIN utilisateur u ON u.utilisateur_id = c.utilisateur_id_chauffeur
 JOIN voiture v ON v.voiture_id = c.voiture_id
-LEFT JOIN participation p ON p.covoiturage_id = c.covoiturage_id
-LEFT JOIN avis a ON a.avis_id = p.avis_id AND a.statut = 'valide'
+
+-- Sous-requête : calcule la note moyenne + le nombre d'avis validés par chauffeur
+LEFT JOIN (
+    SELECT 
+        c2.utilisateur_id_chauffeur AS chauffeur_id,
+        AVG(a.note) AS note_moyenne,
+        COUNT(*) AS nb_avis_valides
+    FROM covoiturage c2
+    JOIN participation p ON p.covoiturage_id = c2.covoiturage_id
+    JOIN avis a ON a.avis_id = p.avis_id
+    WHERE a.statut = 'valide'
+    GROUP BY c2.utilisateur_id_chauffeur
+) n ON n.chauffeur_id = c.utilisateur_id_chauffeur
+
 WHERE c.lieu_depart = :depart
   AND c.lieu_arrivee = :destination
   AND c.date_depart = :date
   AND c.nb_place > 0
+
 
 ";
 
