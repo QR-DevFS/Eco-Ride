@@ -115,11 +115,11 @@ $voitures = $stmt->fetchAll();
           <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
         </div>
         <div class="offcanvas-body sidebar">
-          <a href="index.php">Accueil</a>
-          <a href="recherche_covoiturage.php">Covoiturages</a>
-          <a href="contact.php">Contact</a>
+          <a href="Index.php">Accueil</a>
+          <a href="Index_pagecovoit.php">Covoiturages</a>
+          <a href="Index_pagecontact.php">Contact</a>
           <hr>
-          <a href="profil.php">Mon profil</a>
+
           <a href="logout.php">Déconnexion</a>
         </div>
       </div>
