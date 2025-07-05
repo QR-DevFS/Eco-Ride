@@ -23,8 +23,8 @@ try {
     if (!$details) {
         die("❌ Covoiturage introuvable.");
     }
-
-    $avis = $pdo->query("
+$chauffeurId = $details['utilisateur_id_chauffeur'];
+    $stmtAvis = $pdo->prepare("
         SELECT 
             a.avis_id, 
             a.commentaire, 
@@ -35,7 +35,10 @@ try {
         JOIN covoiturage c ON p.covoiturage_id = c.covoiturage_id
         JOIN utilisateur chauffeur ON c.utilisateur_id_chauffeur = chauffeur.utilisateur_id
         WHERE a.statut = 'valide'
-    ")->fetchAll();
+         AND c.utilisateur_id_chauffeur = :chauffeur_id
+    ");
+    $stmtAvis->execute(['chauffeur_id' => $chauffeurId]);
+    $avis=$stmtAvis->fetchAll();
 
 } catch (PDOException $e) {
     die("❌ Erreur DB : " . $e->getMessage());

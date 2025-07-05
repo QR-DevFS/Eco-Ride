@@ -49,7 +49,7 @@ if ($prix_max !== null && $prix_max !== '') {
     $sql .= " AND c.prix_personne <= :prix_max";
 }
 if ($electrique) {
-    $sql .= " AND v.energie = 'Électrique'";
+    $sql .= " AND v.energie = 'Electrique'";
 }
 
 
@@ -89,7 +89,7 @@ if (!$rows) {
 // Affichage des résultats
 foreach ($rows as $row) {
     $note = $row['note_moyenne'] ? number_format($row['note_moyenne'], 1) : "Aucune note";
-    $ecologique = ($row["energie"] == "Électrique") ? "✅ Écologique" : "❌ Non-écologique";
+    $ecologique = ($row["energie"] == "Electrique") ? "✅ Écologique" : "❌ Non-écologique";
 
     echo "
     <div class='card m-3'>
@@ -115,7 +115,7 @@ foreach ($rows as $row) {
                     </form>";
     } else {
         echo "
-                    <a href='login.php' class='btn btn-secondary mt-1'>Se connecter pour participer</a>";
+                    <a href='Index.php' class='btn btn-secondary mt-1'>Se connecter pour participer</a>";
     }
 
     echo "
